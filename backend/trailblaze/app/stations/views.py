@@ -10,7 +10,12 @@ from .serializers import StationSerializer
 # Create your views here.
 class StationView(viewsets.GenericViewSet):
 
-    def get(self, request):
+    def get(self, request,slug = None):
+        if slug:
+            station_one = get_object_or_404(Station.objects.all(), slug=slug)
+            serializer_one = StationSerializer(station_one)
+            return Response(serializer_one.data)
+        
         stations = Station.objects.all()
         serializer = StationSerializer(stations, many=True)
         return Response(serializer.data)
