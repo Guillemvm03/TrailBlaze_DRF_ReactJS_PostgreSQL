@@ -1,8 +1,12 @@
 #!/bin/bash
 
-# echo "Creating Migrations..."
-# python3 manage.py makemigrations trailblaze
-# echo ====================================
+echo "Showing Migrations..."
+python3 manage.py showmigrations
+echo ====================================
+
+echo "Creating Migrations..."
+python3 manage.py makemigrations
+echo ====================================
 
 echo "Starting Migrations..."
 python3 manage.py migrate

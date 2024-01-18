@@ -15,6 +15,10 @@ services:
     container_name: djangoapp
     build:
       context: ./backend
+    restart: unless-stopped
+    volumes:
+      - ./backend:/app
+      # - ./backend:/code/backend
     ports:
       - "8000:8000"
     environment:
