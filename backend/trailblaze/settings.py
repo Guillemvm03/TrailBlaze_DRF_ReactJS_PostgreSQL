@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'trailblaze.app.stations',
+    'trailblaze.app.bikes',
+    'trailblaze.app.slots',
 ]
 
 MIDDLEWARE = [
