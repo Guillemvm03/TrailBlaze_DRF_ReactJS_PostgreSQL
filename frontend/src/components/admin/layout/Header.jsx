@@ -1,8 +1,17 @@
 
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import './Header.scss'
+import { useNavigate } from 'react-router-dom';
 
 function Header() {
+
+    const Navigate = useNavigate();
+
+
+    const redirects =  {
+        home: () => Navigate('/home'),
+        stations: () => Navigate('/admin/dashboard/stations')
+    }
 
     return (
         <Navbar fluid rounded>
@@ -31,7 +40,7 @@ function Header() {
                 <Navbar.Toggle />
             </div>
             <Navbar.Collapse>
-                <Navbar.Link href="#" active>
+                <Navbar.Link Navigate onClick={redirects.home} active>
                     Home
                 </Navbar.Link>
                 <Navbar.Link href="#">About</Navbar.Link>
