@@ -1,17 +1,22 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
+// vite.config.js
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react-swc';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
   server: {
     host: true,
-    port: 5173, // This is the port which we will use in docker
-    // Thanks @sergiomoura for the window fix
-    // add the next lines if you're using windows and hot reload doesn't work
+    port: 5173,
     strictPort: true,
     watch: {
       usePolling: true
     }
+  },
+  optimizeDeps: {
+    exclude: ['@here/maps-api-for-javascript']
+  },
+  esbuild: {
+    jsxInject: "import React from 'react'"
   }
-})
+});
