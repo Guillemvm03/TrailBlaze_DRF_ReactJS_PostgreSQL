@@ -1,25 +1,12 @@
 
 import { Table } from 'flowbite-react';
 import { useStations } from '../../../hooks/useStations';
-import { useToastr } from '../../../hooks/useToastr';
 import DeleteStationModal from './modals/DeleteStationModal';
 import CreateStationModal from './modals/CreateStationModal';
 
 function TableListStations() {
 
     const { stations, setStations, useDeleteStation, useUpdateStation } = useStations();
-
-    const { toastr, setToastr, useCreateToastr } = useToastr();
-
-    function deleteModal(slug) {
-        useDeleteStation(slug);
-        useCreateToastr({ status: true })
-    }
-
-    function updateModal(res) {
-        useUpdateStation(res);
-        useCreateToastr({ status: true })
-    }
 
     const rows = stations.map(station => (
         <Table.Row key={station.slug} className="bg-white dark:border-gray-700 dark:bg-gray-800">
@@ -32,8 +19,8 @@ function TableListStations() {
             <Table.Cell>{station.description}</Table.Cell>
             <Table.Cell>{station.capacity}</Table.Cell>
             <Table.Cell>
-                <DeleteStationModal sendData={(res) => deleteModal(station.slug)}></DeleteStationModal>
-                <CreateStationModal station={station} updateStation={(res) => updateModal(res)}></CreateStationModal>
+                <DeleteStationModal sendData={(res) => useDeleteStation(station.slug)}></DeleteStationModal>
+                <CreateStationModal station={station} updateStation={(res) => useUpdateStation(res)}></CreateStationModal>
             </Table.Cell>
         </Table.Row>
     ));
