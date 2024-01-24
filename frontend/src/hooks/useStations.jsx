@@ -1,9 +1,11 @@
 import { useCallback, useContext, useState } from "react"
 import StationContext from "../context/StationsContext";
 import StationService from "../services/StationService";
+import { useToastr } from "./useToastr";
 
 export function useStations() {
     const { stations, setStations } = useContext(StationContext);
+    const { useCreateToastr } = useToastr();
     const [oneStation, setOneStation] = useState({});
 
     const useCreateStation = useCallback(data => {
@@ -11,6 +13,7 @@ export function useStations() {
             .then(({ data, status }) => {
                 if (status === 200) {
                     setStations([...stations, data]);
+                    useCreateToastr({ status: true })
                 }
             })
             .catch(e => {
@@ -23,6 +26,7 @@ export function useStations() {
             .then(({ status }) => {
                 if (status === 200) {
                     setStations(stations.filter((item) => item.slug !== data));
+                    useCreateToastr({ status: true })
                 }
             })
             .catch(e => {
@@ -40,6 +44,7 @@ export function useStations() {
                         }
                         return item;
                     }));
+                    useCreateToastr({ status: true })
                 }
             })
             .catch(e => {
