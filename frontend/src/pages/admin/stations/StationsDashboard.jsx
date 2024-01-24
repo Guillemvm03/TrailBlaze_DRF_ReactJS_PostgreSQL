@@ -5,17 +5,22 @@ import { Card } from "flowbite-react";
 import CreateStationModal from "../../../components/admin/Stations/modals/CreateStationModal";
 import { useStations } from "../../../hooks/useStations";
 import TableListStations from "../../../components/admin/Stations/TableListStations";
+// import Map from "../../../Maps";
 
 const StationsDashboard = () => {
     const navigate = useNavigate();
     const { stations, setStations, useCreateStation } = useStations();
 
+    console.log(stations);
     const redirects = {
         stations: () => navigate('/admin/dashboard/stations')
     }
 
     return (
+        
         <div className="stationsDashboard">
+        {}
+
             <Card className="">
                 <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                     Stations DashBoard
@@ -26,6 +31,7 @@ const StationsDashboard = () => {
                 </p>
                 <TableListStations></TableListStations>
             </Card>
+
         </div>
     )
 }

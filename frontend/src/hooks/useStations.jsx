@@ -1,4 +1,4 @@
-import { useCallback, useContext } from "react"
+import { useCallback, useContext, useState } from "react"
 import StationContext from "../context/StationsContext";
 import StationService from "../services/StationService";
 import { useToastr } from "./useToastr";
@@ -6,6 +6,7 @@ import { useToastr } from "./useToastr";
 export function useStations() {
     const { stations, setStations } = useContext(StationContext);
     const { useCreateToastr } = useToastr();
+    const [oneStation, setOneStation] = useState({});
 
     const useCreateStation = useCallback(data => {
         StationService.CreateStations(data)
@@ -51,5 +52,19 @@ export function useStations() {
             });
     }, [stations])
 
-    return { stations, setStations, useCreateStation, useDeleteStation, useUpdateStation };
+    const useGetOneStation = useCallback(item => {
+        console.log(item);
+        StationService.GetStation(item)
+            .then(({ data, status }) => {
+                if (status === 200) {
+                    console.log(data);
+                    setOneStation(data)
+                }
+            })
+            .catch(e => {
+                console.error(e);
+            });
+    }, [oneStation])
+
+    return { stations, setStations, useCreateStation, useDeleteStation, useUpdateStation, useGetOneStation, oneStation };
 }

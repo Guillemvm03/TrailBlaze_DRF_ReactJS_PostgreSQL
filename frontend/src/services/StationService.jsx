@@ -22,6 +22,7 @@ const StationService = {
         return Api().put(`station/${slug}`, data);
     },
 
+
 }
 
 export default StationService;
