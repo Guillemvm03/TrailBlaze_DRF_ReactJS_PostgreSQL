@@ -73,21 +73,22 @@ const StationDetails = () => {
           </svg>
         </div>
       </h1>
-      <br />
+      <br /><br /><br />
       <div className="flex items-center mt-4 space-x-4"></div>
       <div
         role="status"
-        className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center"
+        className="space-y-8 md:space-y-0 md:space-x-8 rtl:space-x-reverse md:flex md:items-center"
       >
-        <div className="flex items-center justify-center w-full h-48 rounded sm:w-96 ">
+        
+        <div className="flex items-center justify-center w-full h-48 rounded sm:w-96">
+          <img class="w-96 h-72" src={oneStation.image} alt="image description"/>
+        </div>
 
-          <img className="w-64 h-48" src={oneStation.image} alt="image description"/>
 
-          </div>
 
         <div className="w-full">
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas nulla totam aut cupiditate aliquid facilis repellat magni tempore a quasi iusto in rerum, distinctio perspiciatis praesentium sed nobis accusantium odit!
-          
+        
         </div>
 
         <span className="sr-only">Loading...</span>
