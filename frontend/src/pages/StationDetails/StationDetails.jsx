@@ -2,21 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useStations } from "../../hooks/useStations";
-// import SlotList from "../../components/client/Stations/SlotList";
+import SlotList from "../../components/client/Stations/Slots/SlotList";
 
 const StationDetails = () => {
   const navigate = useNavigate();
   const { slug } = useParams();
   const { useGetOneStation, oneStation } = useStations();
 
-
   useEffect(function () {
     useGetOneStation(slug);
   }, []);
-
-  console.log(oneStation);
-
-
 
   return (
     <div>
@@ -86,7 +81,7 @@ const StationDetails = () => {
       >
         <div className="flex items-center justify-center w-full h-48 rounded sm:w-96 ">
 
-          <img class="w-64 h-48" src={oneStation.image} alt="image description"/>
+          <img className="w-64 h-48" src={oneStation.image} alt="image description"/>
 
           </div>
 
@@ -101,8 +96,9 @@ const StationDetails = () => {
       <br />
       <br />
       <br />
-      <div className="flex justify-center">
-        <h2 className="text-4xl font-bold dark:text-white">Slots Available</h2>
+      <div className="">
+        <h2 className="text-center text-4xl font-bold dark:text-white">Slots Available</h2>
+        <SlotList />
       </div>
     </div>
     // useGetOneStation.length > 0 ? <SlotList station= /> : <p>loading...</p>

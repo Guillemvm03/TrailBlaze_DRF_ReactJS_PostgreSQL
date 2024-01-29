@@ -40,7 +40,7 @@ function Header() {
                 <Navbar.Toggle />
             </div>
             <Navbar.Collapse>
-                <Navbar.Link Navigate onClick={redirects.home} active>
+                <Navbar.Link onClick={redirects.home} active>
                     Home
                 </Navbar.Link>
                 <Navbar.Link href="#">About</Navbar.Link>

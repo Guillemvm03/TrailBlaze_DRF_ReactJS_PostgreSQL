@@ -12,6 +12,8 @@ import Toastr from './components/toastr/Toastr';
 
 function App() {
   const StationsDashboard = React.lazy(() => import('./pages/admin/stations/StationsDashboard'))
+  const StationDashboard = React.lazy(() => import('./pages/admin/stations/StationDashboard'))
+
   const Login = React.lazy(() => import('./pages/auth/Login'))
   const Register = React.lazy(() => import('./pages/auth/Register'))
   const StationDetails = React.lazy(() => import('./pages/StationDetails/StationDetails'))
@@ -26,16 +28,19 @@ function App() {
               <Header />
               <div className="container mx-auto my-3">
                 <Routes>
-                  <Route path="/home" element = {< HomePage/>}/>
+                  <Route path="/home" element={< HomePage />} />
                   <Route path="/stations/:slug" element={<StationDetails />} />
                   <Route path="/admin">
                     <Route path="dashboard">
-                      <Route path="stations" element={<StationsDashboard />} />
+                      <Route path="stations">
+                        <Route path="" element={<StationsDashboard />} />
+                        <Route path=":slug" element={<StationDashboard />} />
+                      </Route>
                     </Route>
                   </Route>
                   <Route path="/auth">
-                      <Route path="login" element={<Login />}></Route>
-                      <Route path="register" element={<Register />}></Route>
+                    <Route path="login" element={<Login />}></Route>
+                    <Route path="register" element={<Register />}></Route>
                   </Route>
                 </Routes>
               </div>
