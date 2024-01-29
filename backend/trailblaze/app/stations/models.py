@@ -11,7 +11,7 @@ class Station(models.Model):
     lng = models.CharField(max_length=150)
     capacity = models.IntegerField()
     image = models.CharField(max_length=150)
-
+    status = models.CharField(max_length=100)
 
 
     def __str__(self):
