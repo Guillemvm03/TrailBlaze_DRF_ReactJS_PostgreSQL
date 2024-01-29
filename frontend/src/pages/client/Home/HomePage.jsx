@@ -13,6 +13,22 @@ const containerStyle = {
 
 const HomePage = () => {
 
+
+  navigator.geolocation.getCurrentPosition(
+    position => {
+      const location = JSON.stringify(position);
+
+      console.log(position.coords.latitude, position.coords.longitude);
+
+      console.log(location);
+      // alert(location);
+    },
+    error => {console.log(error.message); alert(error.message)},
+    { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+  );
+
+
+
   const navigate = useNavigate();
   const { stations } = useStations();
   const _stations = [...stations];

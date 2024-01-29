@@ -8,10 +8,13 @@ port="$2"
 shift 2
 cmd="$@"
 
-until PG_PASSWORD=$POSTGRES_PASSWORD psql -h "$host" -p "$port" -U "$POSTGRES_USER" -c '\q'; do
+until PGPASSWORD=$PG_PASSWORD psql -h "$host" -p "$port" -U "$PG_USER" -c '\q'; do
   >&2 echo "Postgres is unavailable - sleeping"
   sleep 1
 done
 
+# Añadimos un retraso adicional para asegurar que PostgreSQL esté completamente inicializado
+sleep 5
+
 >&2 echo "Postgres is up - executing command"
-PG_PASSWORD=$POSTGRES_PASSWORD exec $cmd
+PGPASSWORD=$PG_PASSWORD exec $cmd
