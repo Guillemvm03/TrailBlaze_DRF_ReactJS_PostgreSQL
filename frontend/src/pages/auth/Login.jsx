@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Label, TextInput } from 'flowbite-react';
 import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 const Login = () => {
+
+    const { login } = useAuth();
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    function sendData() {
+        let user = {
+            email: email,
+            password: password
+        }
+        login(user);
+    }
 
     return (
         <>
@@ -16,19 +30,19 @@ const Login = () => {
                             <form className="flex max-w-md flex-col gap-4">
                                 <div>
                                     <div className="mb-2 block">
-                                        <Label htmlFor="user" value="Your username or email" />
+                                        <Label htmlFor="user" value="Your email" />
                                     </div>
-                                    <TextInput id="user" type="text" placeholder="user / user@example.com" required shadow />
+                                    <TextInput id="user" type="text" placeholder="user@example.com" required shadow  onChange={(event) => setEmail(event.target.value)}/>
                                 </div>
 
                                 <div>
                                     <div className="mb-2 block">
                                         <Label htmlFor="password" value="Your password" />
                                     </div>
-                                    <TextInput id="password" type="password" required shadow />
+                                    <TextInput id="password" type="password" required shadow onChange={(event) => setPassword(event.target.value)} />
                                 </div>
 
-                                <Button type="button" className="mt-5">Login</Button>
+                                <Button type="button" className="mt-5" onClick={() => sendData()}>Login</Button>
                                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                     Don’t have an account yet? 
                                     <Link to="/auth/register" className="ms-2 font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</Link>

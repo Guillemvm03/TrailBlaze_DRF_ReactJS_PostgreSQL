@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useSlots } from "../../../../hooks/useSlots";
 import SlotCard from "./Cards/SlotCard";
-import { useEffect } from "react";
 
 function SlotList() {
 

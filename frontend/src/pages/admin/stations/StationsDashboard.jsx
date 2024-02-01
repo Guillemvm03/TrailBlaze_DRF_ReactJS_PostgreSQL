@@ -1,20 +1,12 @@
 import React from "react";
 import './StationsDashboard.scss';
-import { useNavigate } from "react-router-dom";
 import { Card } from "flowbite-react";
 import CreateStationModal from "../../../components/admin/Stations/modals/CreateStationModal";
 import { useStations } from "../../../hooks/useStations";
 import TableListStations from "../../../components/admin/Stations/TableListStations";
-// import Map from "../../../Maps";
 
 const StationsDashboard = () => {
-    const navigate = useNavigate();
-    const { stations, setStations, useCreateStation } = useStations();
-
-    console.log(stations);
-    const redirects = {
-        stations: () => navigate('/admin/dashboard/stations')
-    }
+    const { useCreateStation } = useStations();
 
     return (
         
