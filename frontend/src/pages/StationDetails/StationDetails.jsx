@@ -81,7 +81,7 @@ const StationDetails = () => {
       >
         
         <div className="flex items-center justify-center w-full h-48 rounded sm:w-96">
-          <img class="w-96 h-72" src={oneStation.image} alt="image description"/>
+          <img className="w-96 h-72" src={oneStation.image} alt="image description"/>
         </div>
 
 

@@ -6,9 +6,14 @@ import Header from './components/admin/layout/Header';
 import Loading from './components/Loading/Loading';
 
 import './App.css'
+import { UserContext } from './context/UserContext';
 import { StationContext } from './context/StationsContext';
 import { ToastrContext } from './context/ToastrContext';
+
 import Toastr from './components/toastr/Toastr';
+
+import AdminGuard from './services/guards/AdminGuard';
+import { NoAuthGuard, AuthGuard } from './services/guards/AuthGuard';
 
 function App() {
   const StationsDashboard = React.lazy(() => import('./pages/admin/stations/StationsDashboard'))
@@ -24,28 +29,42 @@ function App() {
       <Suspense fallback={<Loading />}>
         <BrowserRouter>
           <ToastrContext>
-            <StationContext>
-              <Header />
-              <div className="container mx-auto my-3">
-                <Routes>
-                  <Route path="/home" element={< HomePage />} />
-                  <Route path="/stations/:slug" element={<StationDetails />} />
-                  <Route path="/admin">
-                    <Route path="dashboard">
-                      <Route path="stations">
-                        <Route path="" element={<StationsDashboard />} />
-                        <Route path=":slug" element={<StationDashboard />} />
+            <UserContext>
+              <StationContext>
+                <Header />
+                <div className="container mx-auto my-3">
+
+                  <Routes>
+                    <Route path="/home" element={< HomePage />} />
+
+                    {/* you must be logged in */}
+                    <Route element={< AuthGuard />}>
+                      <Route path="/stations/:slug" element={<StationDetails />} />
+                    </Route>
+
+                    {/* you must not be logged in */}
+                    <Route path="/auth" element={<NoAuthGuard />}>
+                      <Route path="login" element={<Login />}></Route>
+                      <Route path="register" element={<Register />}></Route>
+                    </Route>
+
+                    {/* you must be admin */}
+                    <Route element={<AdminGuard />}>
+                      <Route path="/admin">
+                        <Route path="dashboard">
+                          <Route path="stations">
+                            <Route path="" element={<StationsDashboard />} />
+                            <Route path=":slug" element={<StationDashboard />} />
+                          </Route>
+                        </Route>
                       </Route>
                     </Route>
-                  </Route>
-                  <Route path="/auth">
-                    <Route path="login" element={<Login />}></Route>
-                    <Route path="register" element={<Register />}></Route>
-                  </Route>
-                </Routes>
-              </div>
-              <Toastr></Toastr>
-            </StationContext>
+
+                  </Routes>
+                </div>
+                <Toastr></Toastr>
+              </StationContext>
+            </UserContext>
           </ToastrContext>
         </BrowserRouter>
       </Suspense>
