@@ -8,7 +8,7 @@ export function useToastr() {
         setToastr(data)
         setTimeout(() => {
             setToastr({ status: false })
-        }, 1500);
+        }, 2500);
     }, [toastr]);
 
     return {

@@ -32,6 +32,7 @@ function Header() {
                     <Dropdown.Header>
                         <span className="block text-sm">{user.username}</span>
                         <span className="block truncate text-sm font-medium">{user.email}</span>
+                        <span className="block truncate text-xs">{user.balance} €</span>
                     </Dropdown.Header>
                     <Dropdown.Item>Dashboard</Dropdown.Item>
                     <Dropdown.Item>Settings</Dropdown.Item>
