@@ -8,6 +8,8 @@ from ..users.models import User
 from decimal import Decimal
 from .models import Payout
 
+from django.conf import settings
+
 import stripe
 
 # Create your views here.
@@ -16,7 +18,7 @@ import stripe
 @permission_classes([IsAuthenticated])
 def Charge(request):
     try:
-        stripe.api_key="sk_test_51Of5QFCCu0LSaV3z6TPn47JdBWicT4rhDeYmJhoGq7wTbzZFY32b3Ij0pTtpdZaPiyGhFyk2qsDbIiguxv8z0CEa00uSERKm1b"
+        stripe.api_key=settings.STRIPE_SECRET_KEY
         id_payment = request.data.get('id')
         if id_payment is not None:
             email = request.user

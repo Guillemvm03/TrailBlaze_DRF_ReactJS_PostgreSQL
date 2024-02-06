@@ -5,8 +5,9 @@ import { useStripeHook } from "../../hooks/useStripe";
 
 import "./PaymentPage.scss";
 import CheckoutForm from "../../components/payment/CheckoutForm";
+import secrets from "../../secrets";
 
-const stripePromise = loadStripe("pk_test_51Of5QFCCu0LSaV3zlAtFwlGXjDRKouCORS6UWlx2DYGf2u8ZlkPDNegPnxCDuapNFHWwoSsm6k5Kkm0dnLJ00JCE00aeJ0oed2");
+const stripePromise = loadStripe(secrets.STRIPE_PUBLIC_KEY);
 
 export default function PaymentPage() {
   const { clientSecret, useCreatePaymentIntent, useCreateCharge } = useStripeHook();
