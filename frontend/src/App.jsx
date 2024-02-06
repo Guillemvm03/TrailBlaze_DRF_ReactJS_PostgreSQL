@@ -23,6 +23,7 @@ function App() {
   const Register = React.lazy(() => import('./pages/auth/Register'))
   const StationDetails = React.lazy(() => import('./pages/StationDetails/StationDetails'))
   const HomePage = React.lazy(() => import('./pages/client/Home/HomePage'))
+  const PaymentPage = React.lazy(() => import('./pages/payment/PaymentPage'))
 
   return (
     <>
@@ -40,6 +41,9 @@ function App() {
                     {/* you must be logged in */}
                     <Route element={< AuthGuard />}>
                       <Route path="/stations/:slug" element={<StationDetails />} />
+                      <Route path="/payment">
+                        <Route path='' element={<PaymentPage />}></Route>
+                      </Route>
                     </Route>
 
                     {/* you must not be logged in */}

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'trailblaze.app.bikes',
     'trailblaze.app.slots',
     'trailblaze.app.users',
+    'trailblaze.app.payout',
 ]
 
 MIDDLEWARE = [
