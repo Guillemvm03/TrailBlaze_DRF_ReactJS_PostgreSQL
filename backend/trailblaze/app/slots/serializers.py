@@ -40,11 +40,14 @@ class SlotSerializer(serializers.ModelSerializer):
             bike_slug = context['bike_slug']
             status = context['status']
             
-            bike = Bike.objects.get(slug=bike_slug)
-            if bike is None:
-                raise serializers.ValidationError(
-                    'Bike is not find'
-                )
+            if bike_slug is not "":            
+                bike = Bike.objects.get(slug=bike_slug)
+                if bike is None:
+                    raise serializers.ValidationError(
+                        'Bike is not find'
+                    )
+            else:
+                bike = None
             
             if status == 'manteinance':
                 instance.status = 'manteinance'
@@ -52,16 +55,16 @@ class SlotSerializer(serializers.ModelSerializer):
                 instance.save()
                 return instance
             
-            if bike.id != 0 and instance.bike_id is not None:
+            if bike is not None and bike.id != 0 and instance.bike_id is not None:
                 raise serializers.ValidationError(
                     'Slot is in use'
                 )
             
-            if bike.id != 0 and instance.bike_id is None:
+            if bike is not None and bike.id != 0 and instance.bike_id is None:
                 instance.bike_id = bike.id
                 instance.status = 'used'
             
-            if bike.id == 0:
+            if bike is None:
                 instance.bike_id = None
                 instance.status = 'free'
             

@@ -53,11 +53,9 @@ export function useStations() {
     }, [stations])
 
     const useGetOneStation = useCallback(item => {
-        console.log(item);
         StationService.GetStation(item)
             .then(({ data, status }) => {
                 if (status === 200) {
-                    console.log(data);
                     setOneStation(data)
                 }
             })

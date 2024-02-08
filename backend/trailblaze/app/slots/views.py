@@ -29,6 +29,14 @@ class SlotView(viewsets.GenericViewSet):
         
         slots = Slot.objects.filter(station_id=station["id"])
         serializer = SlotSerializer(slots, many=True).data
+        for slot in serializer:
+            if slot["bike_id"]:
+                bike = Bike.objects.get(id=slot["bike_id"])
+                bike = BikeSerializer(bike).data
+                slot["bike_slug"] = bike["slug"]
+            else:
+                slot["bike_slug"] = None
+            
         return Response(serializer)
     
     def post(self, request, station_slug):
@@ -51,9 +59,15 @@ class SlotView(viewsets.GenericViewSet):
             try:
                 slot = Slot.objects.get(station_id=station["id"], pk=slot_id)
                 context={ 'bike_slug': request.data['bike_slug'], 'status': request.data['status'] }
-                serializer = SlotSerializer.change_bike(instance=slot, context=context)
+                serializer = SlotSerializer(SlotSerializer.change_bike(instance=slot, context=context)).data
+                if serializer["bike_id"]:
+                    bike = Bike.objects.get(id=serializer["bike_id"])
+                    bike = BikeSerializer(bike).data
+                    serializer["bike_slug"] = bike["slug"]
+                else:
+                    serializer["bike_slug"] = None
                 
-                return Response(SlotSerializer(serializer).data)
+                return Response(serializer)
             except Slot.DoesNotExist:
                 return Response("Slot not found")
     

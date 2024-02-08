@@ -22,5 +22,6 @@ urlpatterns = [
     path('api/', include('trailblaze.app.stations.urls')),
     path('api/', include('trailblaze.app.bikes.urls')),
     path('api/', include('trailblaze.app.slots.urls')),
-
+    path('api/', include('trailblaze.app.users.urls')),
+    path('api/', include('trailblaze.app.payout.urls')),
 ]
