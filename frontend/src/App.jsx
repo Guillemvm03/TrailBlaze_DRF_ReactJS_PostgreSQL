@@ -24,6 +24,7 @@ function App() {
   const StationDetails = React.lazy(() => import('./pages/StationDetails/StationDetails'))
   const HomePage = React.lazy(() => import('./pages/client/Home/HomePage'))
   const PaymentPage = React.lazy(() => import('./pages/payment/PaymentPage'))
+  const ContactUs = React.lazy(() => import('./pages/contact/ContactUs'))
 
   return (
     <>
@@ -44,6 +45,7 @@ function App() {
                       <Route path="/payment">
                         <Route path='' element={<PaymentPage />}></Route>
                       </Route>
+                      <Route path="/contactus" element={<ContactUs />} />
                     </Route>
 
                     {/* you must not be logged in */}
