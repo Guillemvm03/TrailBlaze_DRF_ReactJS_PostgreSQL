@@ -52,11 +52,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'django_filters',
     'trailblaze.app.stations',
     'trailblaze.app.bikes',
     'trailblaze.app.slots',
     'trailblaze.app.users',
     'trailblaze.app.payout',
+    'trailblaze.app.rent',
 ]
 
 MIDDLEWARE = [

@@ -1,7 +1,7 @@
 
 import { Button, Table } from 'flowbite-react';
 import { useSlots } from '../../../hooks/useSlots';
-import DeleteModal from './modals/DeleteModal';
+import DeleteModal from '../modals/DeleteModal';
 import UpdateSlotModal from './modals/UpdateSlotModal';
 
 function TableListStations({ station_slug }) {
@@ -17,9 +17,10 @@ function TableListStations({ station_slug }) {
             <Table.Cell>{slot.bike_id ? slot.bike_id : 'Vacia' }</Table.Cell>
             <Table.Cell>{slot.bike_slug ? slot.bike_slug : 'Vacia' }</Table.Cell>
             <Table.Cell>{slot.status}</Table.Cell>
-            <Table.Cell>
-                <DeleteModal sendData={(res) => useDeleteSlot(station_slug, slot.id)}></DeleteModal>
+            <Table.Cell className='flex'>
                 <UpdateSlotModal slot={slot} updateSlot={(res) => updateSlot(res)}></UpdateSlotModal>
+                &nbsp;
+                <DeleteModal sendData={(res) => useDeleteSlot(station_slug, slot.id)}></DeleteModal>
             </Table.Cell>
         </Table.Row>
     ));

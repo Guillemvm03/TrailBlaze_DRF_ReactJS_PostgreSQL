@@ -29,7 +29,6 @@ class UserSerializer(serializers.ModelSerializer):
             email = context['email']
 
             try:
-                print (email)
                 user = User.objects.get(email=email)
             except:
                 raise serializers.ValidationError('*User not found.')

@@ -3,7 +3,6 @@ import StationService from '../services/StationService';
 
 
 const Context = React.createContext({})
-
 export function StationContext({ children }) {
     const [stations, setStations] = useState([])
 
