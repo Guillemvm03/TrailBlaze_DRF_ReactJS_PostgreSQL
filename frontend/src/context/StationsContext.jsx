@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import StationService from '../services/StationService';
 
 const Context = React.createContext({})
-
 export function StationContext({ children }) {
     const [stations, setStations] = useState([])
 

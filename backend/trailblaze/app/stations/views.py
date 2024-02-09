@@ -23,10 +23,8 @@ class StationView(viewsets.GenericViewSet):
     def post(self, request):
         station = request.data
         serializer = StationSerializer(data=station)
-        # print(serializer)
         if serializer.is_valid(raise_exception=True):
             serializer.save()
-            # print(serializer.data)
         return Response(serializer.data)
 
     def delete(self, request, slug):

@@ -7,7 +7,6 @@ export function useStations() {
     const { stations, setStations } = useContext(StationContext);
     const { useCreateToastr } = useToastr();
     const [oneStation, setOneStation] = useState({});
-
     const useCreateStation = useCallback(data => {
         StationService.CreateStations(data)
             .then(({ data, status }) => {
