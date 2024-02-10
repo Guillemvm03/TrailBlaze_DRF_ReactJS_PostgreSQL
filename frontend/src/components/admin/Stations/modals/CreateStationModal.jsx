@@ -1,6 +1,5 @@
 import { Button, Label, Modal, TextInput } from 'flowbite-react';
 import { useState } from 'react';
-// import { useToastr } from '../../../../hooks/useToastr';
 
 const CreateStationModal = ({ createStation, updateStation, station = {
     id: '', slug: '', station_name: '', description: '', address: '', lat: '', lng: '', capacity: '', image: ''
@@ -13,8 +12,6 @@ const CreateStationModal = ({ createStation, updateStation, station = {
     const [description, setDescription] = useState(station.slug != '' ? station.description : 'Avaible');
     const [capacity, setCapacity] = useState(station.slug != '' ? station.capacity : 10);
     const [image, setImage] = useState(station.slug != '' ? station.image : 'https://picsum.photos/200/300');
-
-    // const { useCreateToastr } = useToastr();
 
     function onCloseModal() {
         setOpenModal(false);

@@ -7,7 +7,6 @@ class StationsConfig(AppConfig):
 
 
     def ready(self):
-        print("ready")
         import trailblaze.app.stations.signals
 
     

@@ -9,7 +9,6 @@ class StationSerializer(serializers.ModelSerializer):
         fields = ('id', 'slug', 'station_name', 'description', 'address', 'lat', 'lng', 'capacity', 'image')
 
         def to_representation(self, instance):
-            print("instance" + instance)
             return {
                 'id': instance.id,
                 'slug': instance.slug,

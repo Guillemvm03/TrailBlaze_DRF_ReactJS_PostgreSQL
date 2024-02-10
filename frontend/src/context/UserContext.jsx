@@ -4,29 +4,27 @@ import JwtService from '../services/JwtService';
 
 const Context = React.createContext({})
 
-export function UserContextProvider({ children }) {
+export function UserContext({ children }) {
     const [token, setToken] = useState(JwtService.getToken ? JwtService.getToken : false);
     const [user, setUser] = useState({});
     const [isAuth, setIsAuth] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
 
-
-    useEffect(() => {
+    useEffect(function () {
         if (token) {
             UserService.GetUser()
                 .then(({ data, status }) => {
                     if (status === 200) {
                         setUser(data.user);
                         setIsAuth(true);
-                        setIsAdmin(data.user.types === 'admin');
+                        setIsAdmin(data.user.role == 'Admin');
                     }
                 })
-                .catch(e => console.error(e));
-            return () => clearInterval(interval);
+                .catch(e => console.error(e))
         }
     }, [token]);
 
-    return <Context.Provider value={{ token, setToken, user, setUser, isAuth, setIsAuth, isAdmin, setIsAdmin }}>
+    return <Context.Provider value={{ user, setUser, token, setToken, isAuth, setIsAuth, isAdmin, setIsAdmin }}>
         {children}
     </Context.Provider>
 }
