@@ -3,8 +3,8 @@ import Api from './Api';
 const StripeService = {
 
 
-    CreatePaymentIntent() {
-        return Api().post(`charge`, {});
+    CreatePaymentIntent(amount) {
+        return Api().post(`charge`, { amount });
     },
 
     Charge(data) {

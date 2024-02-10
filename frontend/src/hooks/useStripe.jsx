@@ -7,17 +7,18 @@ export function useStripeHook() {
     const [clientSecret, setClientSecret] = useState('');
     const { useCreateToastr } = useToastr();
 
-    const useCreatePaymentIntent = useCallback(() => {
-        StripeService.CreatePaymentIntent()
+    const useCreatePaymentIntent = useCallback((amount) => {
+        StripeService.CreatePaymentIntent(amount)
             .then(({ data, status }) => {
                 if (status === 200) {
                     setClientSecret(data.cs);
                 }
             })
             .catch(e => {
+                useCreateToastr({ status: true, error: 'wrong', message: e.response.data.error})
                 console.error(e);
             });
-    }, [clientSecret])
+    }, [])
 
     const useCreateCharge = useCallback((res) => {
         StripeService.Charge({ id: res })
@@ -34,6 +35,7 @@ export function useStripeHook() {
 
     return {
         clientSecret,
+        setClientSecret,
         useCreatePaymentIntent,
         useCreateCharge
     }
