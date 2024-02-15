@@ -27,7 +27,6 @@ class UserSerializer(serializers.ModelSerializer):
 
     def getUser(context):
             email = context['email']
-
             try:
                 user = User.objects.get(email=email)
             except:

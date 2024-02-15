@@ -29,6 +29,7 @@ function App() {
 
   const Login = React.lazy(() => import("./pages/auth/Login"));
   const Register = React.lazy(() => import("./pages/auth/Register"));
+  const ProfilePage = React.lazy(() => import('./pages/client/Profile/ProfilePage'))
   const StationDetails = React.lazy(() => import("./pages/StationDetails/StationDetails"));
   const HomePage = React.lazy(() => import("./pages/client/Home/HomePage"));
   const AdminPage = React.lazy(() => import("./pages/admin/AdminPage"));
@@ -56,6 +57,7 @@ function App() {
                       {/* you must be logged in */}
                       <Route element={< AuthGuard />}>
                         <Route path="/stations/:slug" element={<StationDetails />} />
+                        <Route path="/profile" element={<ProfilePage />} />
                         <Route path="/payment">
                           <Route path='' element={<PaymentPage />}></Route>
                         </Route>

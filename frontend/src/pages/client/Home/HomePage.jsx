@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { GoogleMap,useJsApiLoader,Marker,InfoWindow, BicyclingLayer} from "@react-google-maps/api";
 import { useNavigate } from "react-router-dom";
 
-
 import secrets from "../../../secrets";
 import { useStations } from "../../../hooks/useStations";
 
@@ -16,12 +15,16 @@ const HomePage = () => {
   const [mapL, setMapL] = useState(0);
   const [mapLN, setMapLN] = useState(0);
 
+
   navigator.geolocation.getCurrentPosition(
     position => {  
       setMapL(position.coords.latitude);
       setMapLN(position.coords.longitude);
     },
-    error => {console.log(error.message); alert(error.message)},
+    error => {console.log(error.message); 
+      alert(error.message)
+
+    },
     { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
   );
 

@@ -3,49 +3,77 @@ from rest_framework import serializers
 from .models import Rent
 # from .utils import get_rental_price
 from trailblaze.app.users.models import User
-from trailblaze.app.slots import Slot 
-from trailblaze.app.bikes import Bike 
+from trailblaze.app.slots.models import Slot 
+from trailblaze.app.bikes.models import Bike 
 
-class RentSerializer(serializers.ModelSerializaer):
+class RentSerializer(serializers.ModelSerializer):
 
+    rent_id = serializers.CharField(required=False)
+    # user = serializers.SerializerMethodField(read_only=True)
+    user = serializers.SerializerMethodField()
+    bike = serializers.SerializerMethodField()
+    collection_slot = serializers.SerializerMethodField()
+    return_slot = serializers.SerializerMethodField()
+    start_date = serializers.DateTimeField(required=False)
+    end_date = serializers.DateTimeField(required=False)
+    amount = serializers.DecimalField(max_digits=10, decimal_places=2,required=False)
+    status = serializers.CharField(required=False)
+    lat = serializers.CharField(required=False)
+    lng = serializers.CharField(required=False)
     class Meta:
         model = Rent
-        fields = '__all__'
+        fields = ['id', 'rent_id', 'user', 'bike', 'collection_slot','return_slot','start_date', 'end_date', 'amount', 'status', 'lat', 'lng']
+        # read_only_fields = [ 'user' ]
 
-    def create(self, validated_data):
-        user = User.objects.get(id=validated_data['user_id'])
-        bike = Bike.objects.get(id=validated_data['bike_id'])
-        slot = Slot.objects.get(id=validated_data['slot_id'])
+
+
+    def rent(context):
+        username = context['username']
+        slot_id = context['slot_id']
+
+        # user = User.objects.get(username=username)
+        # if user is None:
+        #     raise serializers.ValidationError(
+        #         'User not found'
+        #     )
+
+        slot = Slot.objects.get(pk=slot_id)
+        if slot is None or slot.bike_id is None:
+            raise serializers.ValidationError(
+                'Slot not found '
+            )
+
+        bike = Bike.objects.get(pk=slot.bike_id)
+        if bike is None:
+            raise serializers.ValidationError(
+                'Bike not found'
+            )
+
+        rent_user = Rent.objects.filter(user_id=user.id, end_slot_id=None)
+        if len(rent_user) > 0:
+            raise serializers.ValidationError(
+                'The user can only have one rent open at a time'
+            )
+
+        # CREATE RENT
+
         rent = Rent.objects.create(
-            user=user,
-            bike=bike,
-            slot=slot,
-            start_time=validated_data['start_time'],
-            end_time=validated_data['end_time'],
-            price=validated_data['price'],
-            status=validated_data['status']
+            user_id=user.id,
+            bike_id=slot.bike_id,
+            start_slot_id=slot_id
         )
-        return rent
+        rent.save()
 
-    def update(self, instance, validated_data):
-        instance.user_id = validated_data.get('user_id', instance.user_id)
-        instance.bike_id = validated_data.get('bike_id', instance.bike_id)
-        instance.slot_id = validated_data.get('slot_id', instance.slot_id)
-        instance.start_time = validated_data.get('start_time', instance.start_time)
-        instance.end_time = validated_data.get('end_time', instance.end_time)
-        instance.price = validated_data.get('price', instance.price)
-        instance.status = validated_data.get('status', instance.status)
-        instance.save()
-        return instance
+        # SLOT UPDATE
 
-    def validate(self, data):
-        if data['start_time'] > data['end_time']:
-            raise serializers.ValidationError("Start time must be before end time")
-        return data
+        slot.bike_id = None
+        slot.status = 'unused'
+        slot.save()
 
-    def to_representation(self, instance):
-        representation = super().to_representation(instance)
-        representation['user'] = UserSerializer(instance.user).data
-        representation['bike'] = BikeSerializer(instance.bike).data
-        representation['slot'] = SlotSerializer(instance.slot).data
-        return representation
+        # BIKE UPDATE
+
+        bike.status = 'used'
+        bike.save()
+
+        return rent 
+
