@@ -28,7 +28,8 @@ python3 manage.py create_stations
 echo ====================================
 
 echo "Creating DUMP..."
-PGPASSWORD=$PG_PASSWORD pg_dump -h local_pgdb -U kevin -d trailblaze > ./bk/exportacion.sql
+cat ./bk/init.sql > ./bk/exportacion.sql
+PGPASSWORD=$PG_PASSWORD pg_dump -h local_pgdb -U kevin -d trailblaze >> ./bk/exportacion.sql
 
 echo ====================================
 echo "Starting Server..."
