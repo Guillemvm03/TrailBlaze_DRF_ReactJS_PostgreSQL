@@ -25,13 +25,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Take environment variables from .env file
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-STRIPE_SECRET_KEY=env('STRIPE_SECRET_KEY')
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-551fqsebfbh13r!l23q0=e02c01pm2s4p#%+vizypr3b_0-mtq'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -99,12 +99,12 @@ WSGI_APPLICATION = 'trailblaze.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('DB_DRIVER','django.db.backends.postgresql'),
-        'USER': os.environ.get('PG_USER','kevin'),
-        'PASSWORD':os.environ.get('PG_PASSWORD','1234'),
-        'NAME': os.environ.get('PG_DB','trailblaze'),
-        'PORT': os.environ.get('PG_PORT','5432'),
-        'HOST': os.environ.get('PG_HOST','local_pgdb'), # uses the container if set, otherwise it runs locally
+        'ENGINE': env('DB_ENGINE'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'NAME': env('DB_NAME'),
+        'PORT': env('DB_PORT'),
+        'HOST': env('DB_HOST'), # uses the container if set, otherwise it runs locally
     }
 }
 

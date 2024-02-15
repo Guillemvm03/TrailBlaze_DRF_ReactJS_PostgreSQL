@@ -27,5 +27,9 @@ echo "Creating Dummies..."
 python3 manage.py create_stations
 echo ====================================
 
+echo "Creating DUMP..."
+PGPASSWORD=$PG_PASSWORD pg_dump -h local_pgdb -U kevin -d trailblaze > ./bk/exportacion.sql
+
+echo ====================================
 echo "Starting Server..."
 python3 manage.py runserver 0.0.0.0:8000
