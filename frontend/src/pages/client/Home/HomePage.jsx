@@ -6,7 +6,7 @@ import secrets from "../../../secrets";
 import { useStations } from "../../../hooks/useStations";
 
 const containerStyle = {
-  width: "1500px",
+  width: "auto",
   height: "400px",
 };
 

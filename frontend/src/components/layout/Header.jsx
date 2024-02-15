@@ -14,6 +14,8 @@ function Header() {
         stations: () => Navigate('/admin/dashboard/stations'),
         admin: () => Navigate('/admin'),
         contact: () => Navigate('/contactus'),
+        profile: () => Navigate('/profile'),
+        pricing: () => Navigate('/pricing'),
     }
 
     return (
@@ -23,7 +25,7 @@ function Header() {
                 <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white cursor-pointer" onClick={redirects.home}>TrailBlaze</span>
             </Navbar.Brand>
             <div className="flex md:order-2">
-                <Dropdown
+                {Object.entries(user).length > 0 && (<Dropdown
                     arrowIcon={false}
                     inline
                     label={
@@ -37,10 +39,11 @@ function Header() {
                     </Dropdown.Header>
                     <Dropdown.Item onClick={redirects.admin}>Dashboard</Dropdown.Item>
                     <Dropdown.Item>Settings</Dropdown.Item>
+                    <Dropdown.Item onClick={redirects.profile}>Profile</Dropdown.Item>
                     <Dropdown.Item>Earnings</Dropdown.Item>
                     <Dropdown.Divider />
                     <Dropdown.Item onClick={() => logout()}>Sign out</Dropdown.Item>
-                </Dropdown>
+                </Dropdown>)}
                 <Navbar.Toggle />
             </div>
             <Navbar.Collapse>
@@ -49,7 +52,7 @@ function Header() {
                 </Navbar.Link>
                 <Navbar.Link href="#">About</Navbar.Link>
                 <Navbar.Link href="#">Services</Navbar.Link>
-                <Navbar.Link href="#">Pricing</Navbar.Link>
+                <Navbar.Link onClick={redirects.pricing}>Pricing</Navbar.Link>
                 <Navbar.Link onClick={redirects.contact}>Contact</Navbar.Link>
             </Navbar.Collapse>
         </Navbar>

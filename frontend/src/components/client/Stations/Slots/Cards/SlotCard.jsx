@@ -11,7 +11,7 @@ function SlotCard({ slot }) {
     : 'No disponible';
 
     return (
-        <Card className="max-w-sm">
+        <Card className="">
             <div className="flex justify-end px-4 pt-4">
                 <Dropdown inline label="">
                     <DropdownItem>

@@ -35,6 +35,7 @@ function App() {
   const AdminPage = React.lazy(() => import("./pages/admin/AdminPage"));
   const PaymentPage = React.lazy(() => import('./pages/payment/PaymentPage'))
   const ContactUs = React.lazy(() => import('./pages/contact/ContactUs'))
+  const PricingPage = React.lazy(() => import('./pages/payment/PricingPage'))
 
   return (
     <>
@@ -58,9 +59,12 @@ function App() {
                       <Route element={< AuthGuard />}>
                         <Route path="/stations/:slug" element={<StationDetails />} />
                         <Route path="/profile" element={<ProfilePage />} />
+                        <Route path="/pricing" element={<PricingPage />} />
                         <Route path="/payment">
                           <Route path='' element={<PaymentPage />}></Route>
+                          <Route path=':amount' element={<PaymentPage />}></Route>
                         </Route>
+                        <Route path="/profile" element={<ProfilePage />} />
                         <Route path="/contactus" element={<ContactUs />} />
                       </Route>
 
