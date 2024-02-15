@@ -34,6 +34,6 @@ class Command(BaseCommand):
             station_ = Station.objects.create(station_name=station_name, address=station_address, description=station_description, lat=station_latitude, lng=station_longitude, capacity=station_capacity, image=station_image, status=station_status)
             for slot in range(5):
                 bike_ = Bike.objects.create(bike_type=random.choice(bikes_types), gps=f'{station_latitude},{station_longitude}')
-                station_.slots.create(bike=bike_, status='Active')
+                station_.slots.create(bike=bike_, status='used')
             
             
