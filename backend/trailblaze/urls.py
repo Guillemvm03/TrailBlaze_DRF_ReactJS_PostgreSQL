@@ -19,11 +19,12 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("__debug__/", include("debug_toolbar.urls")),
+    # path("__debug__/", include("debug_toolbar.urls")),
     path('api/', include('trailblaze.app.stations.urls')),
     path('api/', include('trailblaze.app.bikes.urls')),
     path('api/', include('trailblaze.app.slots.urls')),
     path('api/', include('trailblaze.app.users.urls')),
     path('api/', include('trailblaze.app.payout.urls')),
     path('api/', include('trailblaze.app.rent.urls')),
+    path('', include('django_prometheus.urls')),
 ]

@@ -80,6 +80,18 @@ services:
     networks:
       - practica_net
 
+  prometheus:
+    image: prom/prometheus
+    volumes:
+      - ./backend/prometheus/:/etc/prometheus/
+    ports:
+      - "9090:9090"
+    depends_on:
+      - djangoapp
+    networks:
+      - practica_net
+
+
 volumes:
   local_pgdata:
   pgadmin-data:
