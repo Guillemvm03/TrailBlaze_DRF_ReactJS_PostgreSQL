@@ -137,7 +137,9 @@ Esta configuración de Docker Compose define varios servicios:
 - **db**: Servicio de base de datos PostgreSQL, utilizando la versión 15, expuesto en el puerto 5433.
 - **pgadmin**: Ejecuta pgAdmin para la administración de PostgreSQL, accesible en el puerto 8888. Depende del servicio `djangoapp`.
 - **loadbalancer**: Balanceador de carga Nginx para distribuir el tráfico entrante. Expone el puerto 80 y depende del servicio `djangoapp`.
-
+- **prometheus**: Servicio Prometheus para la recopilación de métricas en tiempo real, expuesto en el puerto 9090. Dependiente del servicio djangoapp.
+- **grafana**: Servicio Grafana para la visualización de métricas, accesible en el puerto 3500. Dependiente del servicio prometheus.
+  
 ## Instalación
 
 Para instalar el proyecto TrailBlaze, sigue estos pasos:
@@ -183,8 +185,9 @@ Para instalar el proyecto TrailBlaze, sigue estos pasos:
 El frontend de la aplicación está configurado para ejecutarse en el puerto 5173. Puedes acceder a la interfaz de usuario navegando a http://localhost:5173 en tu navegador web. Desde el frontend, los usuarios pueden realizar las siguientes interacciones:
 
 Registro y inicio de sesión: Los usuarios pueden crear una cuenta nueva o iniciar sesión en una cuenta existente.
-Exploración de bicicletas: Los usuarios pueden ver las bicicletas disponibles para alquilar, junto con su información y ubicación.
+Explorar de estaciones y bicicletas: Los usuarios pueden ver las bicicletas disponibles para alquilar, junto con su información y ubicación.
 Reserva de bicicletas: Los usuarios pueden seleccionar una bicicleta para alquilar y completar el proceso de reserva.
+![image](https://github.com/kevposesp/TrailBlaze_ReactJS_DRF_PostgreSQL/assets/128723799/0764016e-4ec3-4bb5-98b7-b546710a5d43)
 
 ## 3. Acceso a Prometheus
 
@@ -204,6 +207,12 @@ Añadimos un panel.
 Finalmente escogemos el tipo de metrica que quermos mostrar.
 ![image](https://github.com/kevposesp/TrailBlaze_ReactJS_DRF_PostgreSQL/assets/128723799/f34c9d3f-2b76-4366-a3c3-d0b4ab27db39)
 
+## 5. Acceso a PgAdmin
+PgAdmin proporciona una interfaz de usuario para administrar la base de datos PostgreSQL. Está disponible en el puerto 8888. Para acceder a PgAdmin, abre tu navegador web y navega a http://localhost:8888. Inicia sesión con las siguientes credenciales:
+
+Correo electrónico: kevin@domain-name.com
+Contraseña: 1234
+![image](https://github.com/kevposesp/TrailBlaze_ReactJS_DRF_PostgreSQL/assets/128723799/d98f1d5d-f7cc-4fb8-a233-3c59e5455f5a)
 
 ## Contribuciones
 
