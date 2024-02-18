@@ -91,10 +91,26 @@ services:
     networks:
       - practica_net
 
+  grafana:
+    image: grafana/grafana:7.1.5
+    container_name: grafana_container
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=your_admin_password_here
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+    depends_on:
+      - prometheus
+    networks:
+      - practica_net
 
 volumes:
   local_pgdata:
   pgadmin-data:
+  grafana-data:
 
 networks:
   practica_net: {}
