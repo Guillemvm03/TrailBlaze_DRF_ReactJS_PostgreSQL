@@ -59,6 +59,7 @@ INSTALLED_APPS = [
     'trailblaze.app.users',
     'trailblaze.app.payout',
     'trailblaze.app.rent',
+    'trailblaze.app.notifications',
 ]
 
 MIDDLEWARE = [

@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
-from trailblaze.app.users.models import User
+from ...models import User
+from ....notifications.models import Notification
 
 from django.apps import apps
 
@@ -26,4 +27,8 @@ class Command(BaseCommand):
             email = f'{i}@gmail.com'
             phone = f'123456789'
             password = '1234'
-            User.objects.create_user(username=username, email=email, password=password, phone=phone)
+            user = User.objects.create_user(username=username, email=email, password=password, phone=phone)
+            notification = user.notifications.create(title="Bienvenido", description="Bienvenido a Trailblaze", status="info", is_read=False)
+            response_notification = Notification.objects.create(title="Respuesta", description="Respuesta 1", status="info", is_read=False, user=user, type="response")
+            notification.response_notification = response_notification
+            notification.save()

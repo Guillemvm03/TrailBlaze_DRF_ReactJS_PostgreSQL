@@ -35,5 +35,3 @@ class Command(BaseCommand):
             for slot in range(5):
                 bike_ = Bike.objects.create(bike_type=random.choice(bikes_types), gps=f'{station_latitude},{station_longitude}')
                 station_.slots.create(bike=bike_, status='Active')
-            
-            
