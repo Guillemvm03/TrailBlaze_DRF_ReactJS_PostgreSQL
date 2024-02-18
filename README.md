@@ -94,9 +94,40 @@ services:
     depends_on:
       - djangoapp
 
+  prometheus:
+    image: prom/prometheus:v2.20.1
+    container_name: prometheus_practica
+    volumes:
+      - ./backend/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    command: --config.file=/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    depends_on:
+      - djangoapp
+
+  grafana:
+    image: grafana/grafana:7.1.5
+    container_name: grafana_practica
+    restart: always
+    ports:
+      - "3500:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=your_admin_password_here
+      - GF_AUTH_DISABLE_LOGIN_FORM=true
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+    depends_on:
+      - prometheus
+
 volumes:
   local_pgdata:
   pgadmin-data:
+  grafana-data:
+
+
 ```
 
 Esta configuración de Docker Compose define varios servicios:
