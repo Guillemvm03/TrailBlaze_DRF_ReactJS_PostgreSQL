@@ -179,6 +179,32 @@ Para instalar el proyecto TrailBlaze, sigue estos pasos:
 
 1. Inicia el docker-compose: `docker-compose up --build`
 
+## 2. Acceso a Frontend
+El frontend de la aplicación está configurado para ejecutarse en el puerto 5173. Puedes acceder a la interfaz de usuario navegando a http://localhost:5173 en tu navegador web. Desde el frontend, los usuarios pueden realizar las siguientes interacciones:
+
+Registro y inicio de sesión: Los usuarios pueden crear una cuenta nueva o iniciar sesión en una cuenta existente.
+Exploración de bicicletas: Los usuarios pueden ver las bicicletas disponibles para alquilar, junto con su información y ubicación.
+Reserva de bicicletas: Los usuarios pueden seleccionar una bicicleta para alquilar y completar el proceso de reserva.
+
+## 3. Acceso a Prometheus
+
+Prometheus está configurado para ejecutarse en el puerto 9090. Puedes acceder a la interfaz web de Prometheus navegando a http://localhost:9090 en tu navegador web.
+
+![image](https://github.com/kevposesp/TrailBlaze_ReactJS_DRF_PostgreSQL/assets/128723799/6e2835d4-e6bd-472c-8553-18888932c5fb)
+
+## 4. Acceso y uso de Grafana
+
+Grafana está configurado para ejecutarse en el puerto 3500. Puedes acceder a la interfaz web de Grafana navegando a http://localhost:3500 en tu navegador web. Utiliza las credenciales de administrador configuradas en el archivo de configuración de Docker Compose.
+
+![image](https://github.com/kevposesp/TrailBlaze_ReactJS_DRF_PostgreSQL/assets/128723799/aa989340-dbac-4585-b48e-a435c3673e5e)
+Si entramos a configuración->data sources, deberiamos de tener el servicio prometheus por defecto.
+![image](https://github.com/kevposesp/TrailBlaze_ReactJS_DRF_PostgreSQL/assets/128723799/93b313d9-170d-45dd-95dd-95b545b8d9fe)
+Añadimos un panel.
+![image](https://github.com/kevposesp/TrailBlaze_ReactJS_DRF_PostgreSQL/assets/128723799/ec6c9093-1b95-4983-b5f7-ec785c039ead)
+Finalmente escogemos el tipo de metrica que quermos mostrar.
+![image](https://github.com/kevposesp/TrailBlaze_ReactJS_DRF_PostgreSQL/assets/128723799/f34c9d3f-2b76-4366-a3c3-d0b4ab27db39)
+
+
 ## Contribuciones
 
 ¡Las contribuciones son bienvenidas! Si tienes alguna sugerencia, problema o mejora, no dudes en crear un problema o enviar una solicitud de extracción.
