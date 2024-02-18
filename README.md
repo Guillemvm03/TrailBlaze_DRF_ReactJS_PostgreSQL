@@ -34,6 +34,8 @@ services:
       - "5173:5173"
     volumes:
       - ./frontend:/app
+    networks:
+      - practica_net
 
   djangoapp:
     container_name: djangoapp
@@ -53,6 +55,8 @@ services:
       - PG_HOST=local_pgdb
     depends_on:
       - db
+    networks:
+      - practica_net
 
   db:
     image: postgres:15
@@ -66,6 +70,8 @@ services:
     volumes:
       - local_pgdata:/var/lib/postgresql/data
       - ./backend/bk/exportacion.sql:/docker-entrypoint-initdb.d/db_init.sql
+    networks:
+      - practica_net 
 
   pgadmin:
     image: dpage/pgadmin4
@@ -76,10 +82,13 @@ services:
     environment:
       PGADMIN_DEFAULT_EMAIL: kevin@domain-name.com
       PGADMIN_DEFAULT_PASSWORD: 1234
+      PGADMIN_DEFAULT_SERVER: db
     volumes:
       - pgadmin-data:/var/lib/pgadmin
     depends_on:
       - djangoapp
+    networks:
+      - practica_net
 
   loadbalancer:
     image: nginx:latest
@@ -90,9 +99,10 @@ services:
       - ./loadbalancer/nginx.conf:/etc/nginx/nginx.conf:ro
     command: ["nginx", "-g", "daemon off;"]
     entrypoint: []
-
     depends_on:
       - djangoapp
+    networks:
+      - practica_net
 
   prometheus:
     image: prom/prometheus:v2.20.1
@@ -104,6 +114,8 @@ services:
       - "9090:9090"
     depends_on:
       - djangoapp
+    networks:
+      - practica_net
 
   grafana:
     image: grafana/grafana:7.1.5
@@ -121,13 +133,16 @@ services:
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
     depends_on:
       - prometheus
+    networks:
+      - practica_net
 
 volumes:
   local_pgdata:
   pgadmin-data:
   grafana-data:
 
-
+networks:
+  practica_net: {}
 ```
 
 Esta configuración de Docker Compose define varios servicios:
@@ -139,7 +154,11 @@ Esta configuración de Docker Compose define varios servicios:
 - **loadbalancer**: Balanceador de carga Nginx para distribuir el tráfico entrante. Expone el puerto 80 y depende del servicio `djangoapp`.
 - **prometheus**: Servicio Prometheus para la recopilación de métricas en tiempo real, expuesto en el puerto 9090. Dependiente del servicio djangoapp.
 - **grafana**: Servicio Grafana para la visualización de métricas, accesible en el puerto 3500. Dependiente del servicio prometheus.
-  
+
+### Redes Docker
+
+Los servicios definidos en este archivo `docker-compose.yml` están conectados a una red específica llamada `practica_net`. Esta red permite que los contenedores de la aplicación se comuniquen entre sí utilizando los nombres de servicio como hosts, lo que simplifica la configuración y la comunicación entre los diferentes componentes de la aplicación. No es necesario especificar ninguna configuración adicional para la red en este caso, ya que Docker Compose maneja la configuración por defecto de la red interna.
+
 ## Instalación
 
 Para instalar el proyecto TrailBlaze, sigue estos pasos:
@@ -200,11 +219,17 @@ Prometheus está configurado para ejecutarse en el puerto 9090. Puedes acceder a
 Grafana está configurado para ejecutarse en el puerto 3500. Puedes acceder a la interfaz web de Grafana navegando a http://localhost:3500 en tu navegador web. Utiliza las credenciales de administrador configuradas en el archivo de configuración de Docker Compose.
 
 ![image](https://github.com/kevposesp/TrailBlaze_ReactJS_DRF_PostgreSQL/assets/128723799/aa989340-dbac-4585-b48e-a435c3673e5e)
+
 Si entramos a configuración->data sources, deberiamos de tener el servicio prometheus por defecto.
+
 ![image](https://github.com/kevposesp/TrailBlaze_ReactJS_DRF_PostgreSQL/assets/128723799/93b313d9-170d-45dd-95dd-95b545b8d9fe)
+
 Añadimos un panel.
+
 ![image](https://github.com/kevposesp/TrailBlaze_ReactJS_DRF_PostgreSQL/assets/128723799/ec6c9093-1b95-4983-b5f7-ec785c039ead)
+
 Finalmente escogemos el tipo de metrica que quermos mostrar.
+
 ![image](https://github.com/kevposesp/TrailBlaze_ReactJS_DRF_PostgreSQL/assets/128723799/f34c9d3f-2b76-4366-a3c3-d0b4ab27db39)
 
 ## 5. Acceso a PgAdmin
