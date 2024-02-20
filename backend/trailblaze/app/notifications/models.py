@@ -11,9 +11,12 @@ class Notification(models.Model):
     status = models.CharField(max_length=200)
     is_read = models.BooleanField(default=False)
     
+    created_by = models.CharField(max_length=15, choices=[('admin', 'Admin'), ('client', 'Client')], default="admin")
+    
     type = models.CharField(max_length=10, choices=[('incident', 'Incident'), ('response', 'Response')], default="incident")
     
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, related_name="notifications")
+    to_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     
     rent = models.ForeignKey(Rent, on_delete=models.CASCADE, null=True, related_name="notifications")
     station = models.ForeignKey(Station, on_delete=models.CASCADE, null=True, related_name="notifications")

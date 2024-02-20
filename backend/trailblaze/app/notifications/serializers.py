@@ -10,5 +10,6 @@ class NotificationSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         response = super().to_representation(instance)
         response['user'] = UserSerializer(instance.user).data
+        response['to_user'] = UserSerializer(instance.to_user).data if instance.to_user else None
         response['response'] = NotificationSerializer(instance.response_notification).data if instance.response_notification else None
         return response

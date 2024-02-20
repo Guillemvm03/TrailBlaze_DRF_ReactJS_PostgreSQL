@@ -29,6 +29,6 @@ class Command(BaseCommand):
             password = '1234'
             user = User.objects.create_user(username=username, email=email, password=password, phone=phone)
             notification = user.notifications.create(title="Bienvenido", description="Bienvenido a Trailblaze", status="info", is_read=False)
-            response_notification = Notification.objects.create(title="Respuesta", description="Respuesta 1", status="info", is_read=False, user=user, type="response")
+            response_notification = Notification.objects.create(title="Respuesta", description="Respuesta 1", status="info", is_read=False, user=user, type="response", created_by="client")
             notification.response_notification = response_notification
             notification.save()
