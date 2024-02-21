@@ -1,6 +1,8 @@
 from .models import User
 from ..notifications.models import Notification
 from rest_framework import serializers
+from ..rent.models import Rent
+from ..rent.serializers import RentSerializer
 
 class UserSerializer(serializers.ModelSerializer):
     
@@ -28,7 +30,6 @@ class UserSerializer(serializers.ModelSerializer):
 
     def getUser(context):
             email = context['email']
-
             try:
                 user = User.objects.get(email=email)
             except:
@@ -36,6 +37,25 @@ class UserSerializer(serializers.ModelSerializer):
             
             unread_notifications_count = Notification.objects.filter(to_user=user, is_read=False, type="incident").count()
 
+
+       
+            active_rent =Rent.objects.filter(user=user, status='active')
+            print(active_rent)
+
+            if not active_rent.exists():
+                return {
+                    'user': {
+                        'id': user.id,
+                        'username': user.username,
+                        'phone': user.phone,
+                        'email': user.email,
+                        'role': user.role,
+                        'balance': user.balance,
+                        'rent': None
+                    },
+                    'token': user.token,
+                }
+            
             return {
                 'user': {
                     'id': user.id,
@@ -45,6 +65,12 @@ class UserSerializer(serializers.ModelSerializer):
                     'role': user.role,
                     'balance': user.balance,
                     'unread_notifications': unread_notifications_count,
+                    'rent':{
+                        'id': active_rent[0].id,
+                        'start_date': active_rent[0].start_date,
+                        'status': active_rent[0].status,
+                    }
                 },
                 'token': user.token,
+
             }
