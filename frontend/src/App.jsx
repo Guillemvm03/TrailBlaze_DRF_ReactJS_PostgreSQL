@@ -9,6 +9,7 @@ import "./App.css";
 import { UserContext } from "./context/UserContext";
 import { StationContext } from "./context/StationsContext";
 import { ToastrContext } from "./context/ToastrContext";
+import { NotificationsContext } from "./context/NotificationsContext";
 
 import Toastr from "./components/toastr/Toastr";
 import { BikesContext } from "./context/BikesContext";
@@ -25,6 +26,9 @@ function App() {
   );
   const BikesDashboard = React.lazy(() =>
     import("./pages/admin/bikes/BikesDashboard")
+  );
+  const NotificationDashboard = React.lazy(() =>
+    import("./pages/admin/notifications/NotificationDashboard")
   );
 
   const Login = React.lazy(() => import("./pages/auth/Login"));
@@ -45,52 +49,57 @@ function App() {
             <UserContext>
               <StationContext>
                 <BikesContext>
-                  <Routes>
-                    <Route path="/admin/*" element={<Sidebar />} />
-                    <Route path="/*" element={<Header />} />
-                  </Routes>
-                  <div className="container mx-auto my-3">
-
+                  <NotificationsContext>
                     <Routes>
-                      <Route path="/" element={<HomePage />} />
-                      <Route path="/home" element={< HomePage />} />
+                      <Route path="/admin/*" element={<Sidebar />} />
+                      <Route path="/*" element={<Header />} />
+                    </Routes>
+                    <div className="container mx-auto my-3">
 
-                      {/* you must be logged in */}
-                      <Route element={< AuthGuard />}>
-                        <Route path="/stations/:slug" element={<StationDetails />} />
-                        <Route path="/pricing" element={<PricingPage />} />
-                        <Route path="/payment">
-                          <Route path='' element={<PaymentPage />}></Route>
-                          <Route path=':amount' element={<PaymentPage />}></Route>
+                      <Routes>
+                        <Route path="/" element={<HomePage />} />
+                        <Route path="/home" element={< HomePage />} />
+
+                        {/* you must be logged in */}
+                        <Route element={< AuthGuard />}>
+                          <Route path="/stations/:slug" element={<StationDetails />} />
+                          <Route path="/pricing" element={<PricingPage />} />
+                          <Route path="/payment">
+                            <Route path='' element={<PaymentPage />}></Route>
+                            <Route path=':amount' element={<PaymentPage />}></Route>
+                          </Route>
+                          <Route path="/profile" element={<ProfilePage />} />
+                          <Route path="/contactus" element={<ContactUs />} />
                         </Route>
-                        <Route path="/profile" element={<ProfilePage />} />
-                        <Route path="/contactus" element={<ContactUs />} />
-                      </Route>
 
-                      {/* you must not be logged in */}
-                      <Route path="/auth" element={<NoAuthGuard />}>
-                        <Route path="login" element={<Login />}></Route>
-                        <Route path="register" element={<Register />}></Route>
-                      </Route>
+                        {/* you must not be logged in */}
+                        <Route path="/auth" element={<NoAuthGuard />}>
+                          <Route path="login" element={<Login />}></Route>
+                          <Route path="register" element={<Register />}></Route>
+                        </Route>
 
-                      {/* you must be admin */}
-                      <Route element={<AdminGuard />}>
-                        <Route path="/admin">
-                          <Route path="dashboard">
-                            <Route path="stations">
-                              <Route path="" element={<StationsDashboard />} />
-                              <Route path=":slug" element={<StationDashboard />} />
-                            </Route>
-                            <Route path="bikes">
-                              <Route path="" element={<BikesDashboard />} />
+                        {/* you must be admin */}
+                        <Route element={<AdminGuard />}>
+                          <Route path="/admin">
+                            <Route path="dashboard">
+                              <Route path="stations">
+                                <Route path="" element={<StationsDashboard />} />
+                                <Route path=":slug" element={<StationDashboard />} />
+                              </Route>
+                              <Route path="bikes">
+                                <Route path="" element={<BikesDashboard />} />
+                              </Route>
+                              <Route path="notifications">
+                                <Route path="" element={<NotificationDashboard />} />
+                              </Route>
                             </Route>
                           </Route>
                         </Route>
-                      </Route>
 
-                    </Routes>
-                  </div>
-                  <Toastr></Toastr>
+                      </Routes>
+                    </div>
+                    <Toastr></Toastr>
+                  </NotificationsContext>
                 </BikesContext>
               </StationContext>
             </UserContext>
