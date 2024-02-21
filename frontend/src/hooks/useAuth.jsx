@@ -49,5 +49,5 @@ export function useAuth() {
         useCreateToastr({ status: true })
     }
 
-    return { user, login, register, logout, isAdmin };
+    return { user, setUser, login, register, logout, isAdmin };
 }

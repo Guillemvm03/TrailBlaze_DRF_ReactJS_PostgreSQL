@@ -1,4 +1,5 @@
 from .models import User
+from ..notifications.models import Notification
 from rest_framework import serializers
 
 class UserSerializer(serializers.ModelSerializer):
@@ -32,6 +33,8 @@ class UserSerializer(serializers.ModelSerializer):
                 user = User.objects.get(email=email)
             except:
                 raise serializers.ValidationError('*User not found.')
+            
+            unread_notifications_count = Notification.objects.filter(to_user=user, is_read=False, type="incident").count()
 
             return {
                 'user': {
@@ -41,6 +44,7 @@ class UserSerializer(serializers.ModelSerializer):
                     'email': user.email,
                     'role': user.role,
                     'balance': user.balance,
+                    'unread_notifications': unread_notifications_count,
                 },
                 'token': user.token,
             }

@@ -2,7 +2,6 @@ import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import './Header.scss'
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
-import { useEffect } from 'react';
 
 function Header() {
 
@@ -29,7 +28,12 @@ function Header() {
                     arrowIcon={false}
                     inline
                     label={
-                        <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
+                        <div>
+                            <Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded />
+                            {user.unread_notifications > 0 && (
+                                <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-0 mt-1 -end-0 me-1 dark:border-gray-900">{user.unread_notifications}</div>
+                            )}
+                        </div>
                     }
                 >
                     <Dropdown.Header>

@@ -47,12 +47,19 @@ class NotificationView(viewsets.ModelViewSet):
     
     def destroy(self, request, pk, *args, **kwargs):
         try:
-            notification = self.queryset.get(pk=pk, user=request.user)
-            if notification.type != "incident":
-                return Response({"error": "Error not incident."}, status=status.HTTP_400_BAD_REQUEST)
+            isAdmin = request.user.role == "Admin"
+            if isAdmin:
+                notification = self.queryset.get(pk=pk)
+            else:
+                notification = self.queryset.filter(pk=pk, user=request.user) | self.queryset.filter(pk=pk, to_user=request.user)                
+                if notification.exists():
+                    notification = notification.first()
             
             if notification is None:
                 return Response({"error": "Error not found."}, status=status.HTTP_404_NOT_FOUND)
+                
+            if notification.type != "incident":
+                return Response({"error": "Error not incident."}, status=status.HTTP_400_BAD_REQUEST)
             
             response_notification = notification.response_notification
             
@@ -100,6 +107,7 @@ class NotificationView(viewsets.ModelViewSet):
         serializer.save()
         
         parent_notification.response_notification = serializer.instance
+        parent_notification.is_read = True
         parent_notification.save()
         
         return Response(self.get_serializer(parent_notification).data, status=status.HTTP_201_CREATED)
