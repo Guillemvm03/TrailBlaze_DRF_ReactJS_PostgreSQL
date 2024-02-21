@@ -86,4 +86,10 @@ class SlotView(viewsets.GenericViewSet):
                 except Slot.DoesNotExist:
                     return Response("Slot not found")
         except Exception as e:
-            return Response(e)
+            return Response(e)    
+        
+
+    def get_all(self, request):
+        slots = Slot.objects.all()
+        serializer = SlotSerializer(slots, many=True).data
+        return Response(serializer)

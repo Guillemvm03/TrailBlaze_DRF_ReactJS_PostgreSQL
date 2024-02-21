@@ -8,7 +8,7 @@ function SlotList() {
     const { slots, setSlots } = useSlots(slug);
 
     return (
-        <div className="container mx-auto my-3 grid h-56 grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 md:grid-cols-4 md:gap-4 sm:h-64 xl:h-80 2xl:h-96">
+        <div className="container w-4/5 sm:w-auto mx-auto my-3 grid auto-rows-auto h-56 grid-cols-1 gap-1 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4 lg:gap-4 sm:h-64 xl:h-80 2xl:h-96">
             {slots.map((slot) => (
                 <SlotCard key={slot.id} slot={slot} />
             ))}

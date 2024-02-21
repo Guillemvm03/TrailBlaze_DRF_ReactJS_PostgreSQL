@@ -1,19 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Button } from 'flowbite-react';
-import { useState } from 'react';
 
-function RentalModal({ sendData, slot }) {
+function LeaveModal({ sendData, slot }) {
     const [openModal, setOpenModal] = useState(false);
 
-    function rentalModal() {
+    function leaveModal() {
         sendData(true)
     }
 
     return (
         <>
-        <Button className='inline-flex items-center rounded-lg bg-cyan-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-cyan-800 focus:outline-none focus:ring-4 focus:ring-cyan-300 dark:bg-cyan-600 dark:hover:bg-cyan-700 dark:focus:ring-cyan-800' onClick={() => setOpenModal(true)}>
-            Rent
-      </Button>
+        <Button className='inline-flex items-center rounded-lg bg-red-700 px-4 py-2 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800' onClick={() => setOpenModal(true)}>
+            Leave Bike
+        </Button>
 
         <Modal
             show={openModal}
@@ -23,7 +22,7 @@ function RentalModal({ sendData, slot }) {
             <Modal.Header>
                 <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-                        Confirm Rental
+                        Confirm Bike Return
                     </h3>
                     <button
                         type="button"
@@ -51,26 +50,18 @@ function RentalModal({ sendData, slot }) {
             </Modal.Header>
             <Modal.Body>
                 <div className="p-4 md:p-5">
-                    <img
-                        src="https://images.pexels.com/photos/100582/pexels-photo-100582.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                        alt="Bike"
-                        className="w-full mb-4 rounded-lg"
-                    />
                     <p className='text-gray-900 dark:text-gray-300'>Slot: {slot.id}</p>
                     <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
                         {slot.bike_slug}
                     </h3>
-                    <p className="text-gray-900 dark:text-gray-300">
-                        <b>Price:</b> <span className="text-green-500 text-lg">$0.25 </span>initial charge, then <span className="text-green-500 text-lg">$0.50</span> per hour
-                    </p>
                     <hr className="my-4" />
                     
                     <p className="text-gray-900 dark:text-gray-300">
-                        Are you sure you want to rent this bike?
+                        Are you sure you want to leave this bike?
                     </p>
                     <div className="flex justify-end mt-6">
-                        <Button color="success" onClick={() => {setOpenModal(false); rentalModal()}}>
-                            Yes, Rent
+                        <Button color="danger" onClick={() => {setOpenModal(false); leaveModal()}}>
+                            Yes, Leave
                         </Button>
                         <Button color="gray" className="ml-3" onClick={() => setOpenModal(false)}>
                             Cancel
@@ -83,4 +74,4 @@ function RentalModal({ sendData, slot }) {
     );
 }
 
-export default RentalModal;
+export default LeaveModal;

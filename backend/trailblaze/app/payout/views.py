@@ -18,6 +18,11 @@ import stripe
 @permission_classes([IsAuthenticated])
 def Charge(request):
     try:
+        amount = request.data.get('amount')
+        if amount is not None:
+            if amount not in [10, 30, 50]:
+                amount = 10
+                
         stripe.api_key=settings.STRIPE_SECRET_KEY
         id_payment = request.data.get('id')
         if id_payment is not None:
@@ -39,7 +44,7 @@ def Charge(request):
             return Response({'id_payment': id_payment, "payment": payment}, status=status.HTTP_200_OK)
         else:
             intent = stripe.PaymentIntent.create(
-                amount=1000,
+                amount=amount*100,
                 currency="eur",
                 payment_method_types=["card"],
             )

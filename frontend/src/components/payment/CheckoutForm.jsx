@@ -5,7 +5,7 @@ import {
     useElements
 } from "@stripe/react-stripe-js";
 
-export default function CheckoutForm({ sendData }) {
+export default function CheckoutForm({ sendData, amount }) {
     const stripe = useStripe();
     const elements = useElements();
 
@@ -56,7 +56,7 @@ export default function CheckoutForm({ sendData }) {
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: "http://localhost:5173/payment/",
+                return_url: "http://localhost:5173/payment/" + amount,
             },
         });
 

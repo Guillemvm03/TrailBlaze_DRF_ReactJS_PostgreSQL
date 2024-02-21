@@ -26,9 +26,10 @@ class UserManager(BaseUserManager):
 
             email=self.normalize_email(email),
             username=username,
-            phone=phone,
-            role='Admin'
+            password=password,
+            phone=phone
         )
+        user.role = 'Admin'
         user.is_staff = True
         user.is_superuser = True
         user.set_password(password)
