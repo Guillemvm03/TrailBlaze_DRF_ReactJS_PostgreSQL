@@ -7,3 +7,4 @@ class IsAdmin(permissions.BasePermission):
             return request.user.role == 'Admin'
         except:
             return False
+        

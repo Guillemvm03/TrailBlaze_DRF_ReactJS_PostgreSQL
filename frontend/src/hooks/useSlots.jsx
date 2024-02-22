@@ -1,10 +1,12 @@
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState, useContext } from "react"
 import SlotService from "../services/SlotService";
 import { useToastr } from "./useToastr";
+import SlotsContext from "../context/SlotsContext"
 
 export function useSlots(station_slug = false) {
 
-    const [ slots, setSlots ] = useState([]);
+    const { slots, setSlots } = useContext(SlotsContext);
+    // const [ slots, setSlots ] = useState([]);
     const { useCreateToastr } = useToastr();
 
     useEffect(function () {
@@ -44,7 +46,7 @@ export function useSlots(station_slug = false) {
                     }));
                     useCreateToastr({ status: true })
                 }
-            })
+            })  
             .catch(e => {
                 console.error(e);
             });
