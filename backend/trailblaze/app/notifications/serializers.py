@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from .models import Notification
 from ..users.serializers import UserSerializer
+from ..stations.serializers import StationSerializer
 
 class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -12,4 +13,5 @@ class NotificationSerializer(serializers.ModelSerializer):
         response['user'] = UserSerializer(instance.user).data
         response['to_user'] = UserSerializer(instance.to_user).data if instance.to_user else None
         response['response'] = NotificationSerializer(instance.response_notification).data if instance.response_notification else None
+        response['station'] = StationSerializer(instance.station).data if instance.station else None
         return response
