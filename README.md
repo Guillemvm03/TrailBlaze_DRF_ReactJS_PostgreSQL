@@ -1,42 +1,44 @@
-# BiciRentalApp
+# TrailBlaze
 
-BiciRentalApp es una aplicación de alquiler de bicicletas que utiliza tecnologías modernas como React.js, Django Rest Framework (DRF), Postgres, Tailwind CSS y Docker. Esta plataforma facilita a los usuarios el alquiler y gestión de bicicletas de manera eficiente y sostenible.
+## Descripción
+TrailBlaze es una aplicación para alquilar bicicletas, diseñada para ofrecer funcionalidades tanto a administradores como a usuarios. Los administradores pueden crear estaciones, gestionar el servidor y manejar aspectos relacionados con el backend, mientras que los usuarios tienen la capacidad de alquilar bicicletas, recargar saldo y reportar posibles problemas.
 
-## Características Principales
-
-- Interfaz de usuario desarrollada con React.js para una experiencia de usuario fluida.
-- API construida con Django Rest Framework (DRF) para gestionar las operaciones del backend.
-- Base de datos Postgres para almacenar la información de los usuarios y las bicicletas.
-- Estilo moderno y responsivo gracias a Tailwind CSS.
-- Dockerizado para facilitar la implementación y la gestión de entornos de desarrollo.
-
-## Requisitos del Sistema
-
-Asegúrate de tener instaladas las siguientes tecnologías en tu entorno de desarrollo:
-
-- Node.js y npm (para React.js)
-- Python y pip (para DRF)
-- Postgres
+## Tecnologías Utilizadas
+- Django Rest Framework (DRF)
+- React JS
 - Docker
+- Docker Compose
+- Tailwind CSS
 
-<!-- ## Configuración del Proyecto
+## Requisitos Previos
+Asegúrate de tener instalados Node.js, Docker y Docker Compose en tu sistema antes de proceder.
 
-1. Clona este repositorio: `git clone https://github.com/tuusuario/BiciRentalApp.git`
-2. Navega al directorio del proyecto: `cd BiciRentalApp`
-3. Instala las dependencias de frontend: `npm install`
-4. Instala las dependencias de backend: `pip install -r requirements.txt`
-5. Configura la base de datos en `settings.py` con tus credenciales de Postgres.
+## Instalación
+1. Configura los archivos `.env` tanto para el backend como para el frontend.
+2. Ejecuta `npm install` en la carpeta del frontend para instalar las dependencias necesarias.
 
-## Ejecutar la Aplicación
+## Ejecución en un Entorno Local
+Para ejecutar la aplicación en un entorno de desarrollo local, navega a la raíz del proyecto y ejecuta el siguiente comando:
+```
+docker-compose up
+```
 
-1. Levanta el backend: `python manage.py runserver`
-2. En otra terminal, levanta el frontend: `npm start`
-3. Accede a la aplicación en tu navegador: `http://localhost:3000` -->
+## Estructura del Proyecto
+El proyecto se estructura en dos carpetas principales:
+- `backend`: Contiene la lógica del servidor, incluyendo la carpeta `trailblaze` donde se encuentra la aplicación, así como archivos de configuración.
+- `frontend`: Contiene archivos de configuración y la carpeta `src`, donde reside la aplicación frontend.
 
-## Contribuciones
+## Configuración
+Los archivos de configuración más importantes son:
+- `.env` en la carpeta `backend`: Este archivo contiene las variables de entorno necesarias para la configuración del backend.
+- `secrets.js` en la carpeta `frontend`: Aquí se encuentran las credenciales que deben coincidir con las variables de entorno definidas en Docker Compose.
 
-¡Las contribuciones son bienvenidas! Si tienes sugerencias, problemas o mejoras, no dudes en crear un issue o enviar un pull request.
+## Uso
+Una vez que el proyecto esté en funcionamiento, puedes acceder a él a través de `localhost` en el puerto asignado a cada servicio.
 
-## Licencia
+## Contacto
+- Guillem 
+- Kevin
 
-Este proyecto está bajo la licencia [MIT](LICENSE).
+## Estado del Proyecto
+Finalizado
