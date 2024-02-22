@@ -8,7 +8,7 @@ import { useAuth } from './useAuth';
 export function useRent() {
     const { slots, setSlots } = useContext(SlotsContext);
     const { user, setUser } = useAuth();
-    const [userRent, setUserRent] = useState({});
+    const [userRents, setUserRents] = useState([]);
     const { useCreateToastr } = useToastr();
     const navigate = useNavigate();
 
@@ -17,8 +17,9 @@ export function useRent() {
         RentService.start_rental(rent)
             .then(({ status, data }) => {
                 if (status === 201) {
-                    console.log(rent);
-                    console.log(data);
+                    // console.log(rent);
+                    // console.log(data);
+                    navigate('/profile')
                     useCreateToastr({ staus: true })
                     setSlots(slots.map((item) => {
                         console.log(item.id);
@@ -48,7 +49,7 @@ export function useRent() {
             .then(({ status }) => {
                 if (status === 200) {
                     useCreateToastr({ status: true })
-                    // navigate('/profile')
+                    navigate('/profile')
                     setSlots(slots.map((item) => {
                         console.log(item.id);
                         if (item.id === data.return_slot) {
@@ -66,22 +67,23 @@ export function useRent() {
     },[slots])
 
 
-    const useGetRent = useCallback( (item) => {
-        RentService.get_user_rental(item)
+    const useGetRents = useCallback((item) => {
+        RentService.get_user_rentals(item)
             .then(({ data, status }) => {
                 if (status === 200) {
                     console.log(data);
-                    setUserRent(data)
-                    // useCreateToastr({ status: true })
-                    navigate('/profile')
+                    setUserRents(data); 
+                    
+                    // useCreateToastr({ status: true });
+                    // navigate('/profile') // 
                 }
             })
             .catch(e => {
                 console.error(e);
             });
-    },[userRent])
+    }, [userRents]); 
 
 
 
-    return { useStartRent, useEndRent, useGetRent, userRent, setUserRent };
+    return { useStartRent, useEndRent, useGetRents, userRents, setUserRents };
 }

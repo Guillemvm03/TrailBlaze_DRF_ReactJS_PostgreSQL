@@ -16,10 +16,9 @@ const RentService = {
 
     },
 
-    get_user_rental(data) {
+    get_user_rentals() {
         // console.log(data);
-
-        return Api().get('rent/user_rent/', data);
+        return Api().get('rent/rental_history/', );
     }
 
 }

@@ -13,6 +13,7 @@ urlpatterns = [
     path('start_rent/', start_rent, name='Start-rental'),
     path('end_rent/<int:rent_id>/', end_rent, name='End-rental'),
     path('user_rent/', RentView.as_view({'get':'user_rent'})),
+    path('rental_history/', RentView.as_view({'get':'rental_history'})),
 
     # path('start_rent/', RentView.as_view({'post': 'start_rent'}), name='start_rent'),
 

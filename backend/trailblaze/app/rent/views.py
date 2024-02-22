@@ -138,12 +138,12 @@ class RentView(viewsets.ModelViewSet):
             return Response(serializer.data)
         except Rent.DoesNotExist:
             return Response({'error': 'No hay reserva activa para este usuario'}, status=status.HTTP_404_NOT_FOUND)
+        
+    @action(detail=False, methods=['get'])
+    def rental_history(self, request):
 
-
-# @action(detail=False, methods=['get'])
-# def rental_history(self, request):
-
-#         user = request.user
-#         rental_history = Rent.objects.filter(user=user, status='inactive').order_by('-start_date')
-#         serializer = self.get_serializer(rental_history, many=True)
-#         return Response(serializer.data)
+        user = request.user
+        rental_history = Rent.objects.filter(user=user, status='inactive').order_by('-start_date')
+        print(rental_history)
+        serializer = self.get_serializer(rental_history, many=True)
+        return Response(serializer.data)
