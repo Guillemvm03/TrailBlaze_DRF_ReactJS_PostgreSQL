@@ -51,6 +51,7 @@ class UserSerializer(serializers.ModelSerializer):
                         'email': user.email,
                         'role': user.role,
                         'balance': user.balance,
+                        'unread_notifications': unread_notifications_count,
                         'rent': None
                     },
                     'token': user.token,
