@@ -31,7 +31,7 @@ STRIPE_SECRET_KEY=env('STRIPE_SECRET_KEY')
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-551fqsebfbh13r!l23q0=e02c01pm2s4p#%+vizypr3b_0-mtq'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -53,12 +53,14 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'django_filters',
+    'debug_toolbar',
     'trailblaze.app.stations',
     'trailblaze.app.bikes',
     'trailblaze.app.slots',
     'trailblaze.app.users',
     'trailblaze.app.payout',
     'trailblaze.app.rent',
+    'trailblaze.app.notifications',
 ]
 
 MIDDLEWARE = [
@@ -71,6 +73,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+
 ]
 
 ROOT_URLCONF = 'trailblaze.urls'
@@ -99,12 +103,12 @@ WSGI_APPLICATION = 'trailblaze.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': os.environ.get('DB_DRIVER','django.db.backends.postgresql'),
-        'USER': os.environ.get('PG_USER','kevin'),
-        'PASSWORD':os.environ.get('PG_PASSWORD','1234'),
-        'NAME': os.environ.get('PG_DB','trailblaze'),
-        'PORT': os.environ.get('PG_PORT','5432'),
-        'HOST': os.environ.get('PG_HOST','local_pgdb'), # uses the container if set, otherwise it runs locally
+        'ENGINE': env('DB_ENGINE'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'NAME': env('DB_NAME'),
+        'PORT': env('DB_PORT'),
+        'HOST': env('DB_HOST'),
     }
 }
 
@@ -126,6 +130,22 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# DEBUG_TOOLBAR_PANELS = [
+#     'debug_toolbar.panels.history.HistoryPanel',
+#     'debug_toolbar.panels.versions.VersionsPanel',
+#     'debug_toolbar.panels.timer.TimerPanel',
+#     'debug_toolbar.panels.settings.SettingsPanel',
+#     'debug_toolbar.panels.headers.HeadersPanel',
+#     'debug_toolbar.panels.request.RequestPanel',
+#     'debug_toolbar.panels.sql.SQLPanel',
+#     'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+#     'debug_toolbar.panels.templates.TemplatesPanel',
+#     'debug_toolbar.panels.cache.CachePanel',
+#     'debug_toolbar.panels.signals.SignalsPanel',
+#     'debug_toolbar.panels.redirects.RedirectsPanel',
+#     'debug_toolbar.panels.profiling.ProfilingPanel',
+# ]
 
 
 # Internationalization

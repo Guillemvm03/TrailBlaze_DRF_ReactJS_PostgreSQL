@@ -55,8 +55,9 @@ class UserView(viewsets.GenericViewSet):
         email = request.user
 
         serializer_context = { 'email': email }
-        serializer = UserSerializer.getUser(context=serializer_context)
-        return Response(serializer)
+        user_serializer = UserSerializer.getUser(context=serializer_context)
+        return Response(user_serializer)
+
 
     # def put(self, request):
     #     serializer = UserSerializer(request.user, data=request.data, partial=True)

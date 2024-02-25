@@ -2,6 +2,10 @@ import Api from './Api';
 
 const SlotService = {
 
+    GetAllSlots() {
+        return Api().get('slot/all');
+    },
+
     GetSlots(slug) {
         return Api().get(`station/${slug}/slot`);
     },

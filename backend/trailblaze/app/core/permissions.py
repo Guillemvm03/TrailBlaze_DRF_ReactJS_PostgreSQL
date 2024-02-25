@@ -1,11 +1,10 @@
 from rest_framework import permissions
-from trailblaze.app.users.models import User
 
 class IsAdmin(permissions.BasePermission):
-    message = "You aren't an admi"
+    message = "You aren't an admin"
     def has_permission(self, request, view):
         try:
-            user = User.objects.get(username=request.user)
-            return user.type == 'Admin'
+            return request.user.role == 'Admin'
         except:
             return False
+        
